@@ -87,8 +87,8 @@ All of the OWIN middleware in this project is created as a part of the open sour
 1. In Visual Studio 2015, create a new "ASP.NET 5 Preview Starter Web" application.
 2. Set SSL Enabled to be True.  Note the SSL URL. BUGBUG: Um, how?
 4. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net OWIN middleware NuGet to the project.
-5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, and the `Models` folder.
-6. Replace the implemenation of the `Controllers\AccountController.cs` class with the one from the project.
+5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
+6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project.
 6. In `Views\Shared`, replace the implementation of `_LoginPartial.cshtml` with the one from the sample.
 7. Replace the contents of `config.json` with the one from the sample.
 6. Replace the contents of `Startup.cs` with the one from the sample.
