@@ -93,4 +93,4 @@ All of the OWIN middleware in this project is created as a part of the open sour
 7. Replace the contents of `config.json` with the one from the sample.
 6. Replace the contents of `Startup.cs` with the one from the sample.
 12. If you want the user to be required to sign-in before they can see any page of the app, then in the `HomeController`, decorate the `HomeController` class with the `[Authorize]` attribute.  If you leave this out, the user will be able to see the home page of the app without having to sign-in first, and can click the sign-in link on that page to get signed in.
-13. Almost done!  Follow the steps in "Running This Sample" to register the application in your AAD tenant.
+13. Almost done!  Follow the steps in "How To Run This Sample" above to register the application in your AAD tenant.
