@@ -6,7 +6,7 @@ For more information about how the protocols work in this scenario and other sce
 ## How To Run This Sample
 
 Getting started is simple!  To run this sample you will need:
-- Visual Studio 2015
+- Visual Studio 2015 CTP6
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
@@ -84,7 +84,7 @@ All of the OWIN middleware in this project is created as a part of the open sour
 
 ## How To Recreate This Sample
 
-1. In Visual Studio 2015, create a new "ASP.NET 5 Preview Starter Web" application.
+1. In Visual Studio 2015 CTP6, create a new "ASP.NET 5 Preview Starter Web" application.
 2. Set SSL Enabled to be True.  Note the SSL URL. BUGBUG: Um, how?
 4. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net OWIN middleware NuGet to the project.
 5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
