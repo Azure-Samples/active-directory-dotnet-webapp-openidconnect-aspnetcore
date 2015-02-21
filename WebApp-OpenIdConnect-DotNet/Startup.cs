@@ -34,6 +34,7 @@ namespace WebApp_OpenIdConnect_DotNet
             // Add MVC services to the services container.
             services.AddMvc();
 
+            // OpenID Connect Authentication Requires Cookie Auth
             services.Configure<ExternalAuthenticationOptions>(options =>
             {
                 options.SignInAsAuthenticationType = CookieAuthenticationDefaults.AuthenticationType;
@@ -64,6 +65,7 @@ namespace WebApp_OpenIdConnect_DotNet
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 
+            // Configure the OWIN Pipeline to use OpenID Connect Authentication
             app.UseCookieAuthentication(options => { });
 
             app.UseOpenIdConnectAuthentication(options =>
