@@ -85,8 +85,21 @@ All of the OWIN middleware in this project is created as a part of the open sour
 ## How To Recreate This Sample
 
 1. In Visual Studio 2015 CTP6, create a new "ASP.NET 5 Preview Starter Web" application.
-2. Set SSL Enabled to be True.  Note the SSL URL. BUGBUG: Um, how?
-4. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net OWIN middleware NuGet to the project.
+2. These steps are necessary to enable SSL only for Visual Studio 2015 CTP6: First, hit F5 to run the template application.  Once you see the homepage, you may close the browser and stop IIS Express.  In a text editor, open the file `%userprofile%\documents\IISExpress\config\applicatoinhost.confg`.  Find the entry for your app in the `<sites>` node.  Add an https protocol binding to this entry for a port between 44300 and 44399, similar to the following:
+
+```
+<site name="WebApplication1" id="2">
+	<application path="/" applicationPool="Clr4IntegratedAppPool">
+        	<virtualDirectory path="/" physicalPath="c:\users\billhie\documents\visual studio 2015\Projects\WebApplication1\WebApplication1" />
+        </application>
+        <bindings>
+            <binding protocol="http" bindingInformation="*:53756:localhost" />
+            <binding protocol="https" bindingInformation="*:44300:localhost" />
+        </bindings>
+    </site>
+```
+Save and close the file.  In Visual Studio, open the properties page of your web app.  In the Debug menu, enable the Launch Browser checkbox and enter the same URL as the protocol binding you added, e.g. `https://localhost:44300/`.  Your app will now run at this address.
+5. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net OWIN middleware NuGet to the project.  Remember to enable prerelease versions in the NuGet package manager.
 5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
 6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project.
 6. In `Views\Shared`, replace the implementation of `_LoginPartial.cshtml` with the one from the sample.
