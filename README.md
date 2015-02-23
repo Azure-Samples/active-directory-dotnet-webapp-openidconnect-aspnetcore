@@ -99,9 +99,10 @@ All of the OWIN middleware in this project is created as a part of the open sour
     </site>
 ```
 Save and close the file.  In Visual Studio, open the properties page of your web app.  In the Debug menu, enable the Launch Browser checkbox and enter the same URL as the protocol binding you added, e.g. `https://localhost:44300/`.  Your app will now run at this address.
+
 5. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net OWIN middleware NuGet to the project.  Remember to enable prerelease versions in the NuGet package manager.
 5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
-6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project.
+6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project, resolving any excess or missing using statements.
 6. In `Views\Shared`, replace the implementation of `_LoginPartial.cshtml` with the one from the sample.
 7. Replace the contents of `config.json` with the one from the sample.
 6. Replace the contents of `Startup.cs` with the one from the sample.
