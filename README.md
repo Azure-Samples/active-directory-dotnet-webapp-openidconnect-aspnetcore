@@ -6,7 +6,7 @@ For more information about how the protocols work in this scenario and other sce
 ## How To Run This Sample
 
 Getting started is simple!  To run this sample you will need:
-- Visual Studio 2015 CTP6
+- [Visual Studio 2015 CTP6](http://www.visualstudio.com/downloads/visual-studio-2015-ctp-vs)
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
