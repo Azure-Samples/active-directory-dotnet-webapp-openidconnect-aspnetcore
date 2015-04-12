@@ -13,6 +13,9 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
 using Microsoft.AspNet.Security;
 using Microsoft.AspNet.Security.OpenIdConnect;
+using Microsoft.AspNet.Security.Notifications;
+using Microsoft.IdentityModel.Protocols;
+using System.Threading.Tasks;
 
 namespace WebApp_OpenIdConnect_DotNet
 {
@@ -73,6 +76,10 @@ namespace WebApp_OpenIdConnect_DotNet
                 options.ClientId = Configuration.Get("AzureAd:ClientId");
                 options.Authority = String.Format(Configuration.Get("AzureAd:AadInstance"), Configuration.Get("AzureAd:Tenant"));
                 options.PostLogoutRedirectUri = Configuration.Get("AzureAd:PostLogoutRedirectUri");
+                options.Notifications = new OpenIdConnectAuthenticationNotifications
+                {
+                    AuthenticationFailed = OnAuthenticationFailed,
+                };
             });
 
             // Add MVC to the request pipeline.
@@ -86,6 +93,13 @@ namespace WebApp_OpenIdConnect_DotNet
                 // Uncomment the following line to add a route for porting Web API 2 controllers.
                 // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
             });
+        }
+
+        private Task OnAuthenticationFailed(AuthenticationFailedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
+        {
+            notification.HandleResponse();
+            notification.Response.Redirect("/Home/Error?message=" + notification.Exception.Message);
+            return Task.FromResult(0);
         }
     }
 }
