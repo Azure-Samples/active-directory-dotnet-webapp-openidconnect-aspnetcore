@@ -3,7 +3,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>Hello, @User.Identity.GetUserName()</li>
+        <li>Hello, @User.Identity.Name</li>
         <li>@Html.ActionLink("Log Out", "LogOff", "Account")</li>
     </ul>
 }
