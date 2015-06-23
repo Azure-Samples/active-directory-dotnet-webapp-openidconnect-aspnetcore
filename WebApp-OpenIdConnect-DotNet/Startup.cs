@@ -1,30 +1,26 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Authentication;
+using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.Authentication.Notifications;
+using Microsoft.AspNet.Authentication.OpenIdConnect;
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Security.Cookies;
-using Microsoft.Data.Entity;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Logging.Console;
-using Microsoft.AspNet.Security;
-using Microsoft.AspNet.Security.OpenIdConnect;
-using Microsoft.AspNet.Security.Notifications;
+using Microsoft.Framework.Runtime;
 using Microsoft.IdentityModel.Protocols;
-using System.Threading.Tasks;
 
 namespace WebApp_OpenIdConnect_DotNet
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IApplicationEnvironment env)
         {
             // Setup configuration sources.
-            Configuration = new Configuration()
+            Configuration = new Configuration(env.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
         }
@@ -40,7 +36,7 @@ namespace WebApp_OpenIdConnect_DotNet
             // OpenID Connect Authentication Requires Cookie Auth
             services.Configure<ExternalAuthenticationOptions>(options =>
             {
-                options.SignInAsAuthenticationType = CookieAuthenticationDefaults.AuthenticationType;
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
         }
 
@@ -54,8 +50,7 @@ namespace WebApp_OpenIdConnect_DotNet
             // Add the following to the request pipeline only in development environment.
             if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
             {
-                app.UseBrowserLink();
-                app.UseErrorPage(ErrorPageOptions.ShowAll);
+                app.UseErrorPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else
@@ -68,9 +63,15 @@ namespace WebApp_OpenIdConnect_DotNet
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 
-            // Configure the OWIN Pipeline to use OpenID Connect Authentication
-            app.UseCookieAuthentication(options => { });
+            // Configure the OWIN Pipeline to use Cookie Authentication
+            app.UseCookieAuthentication(options => 
+            {
+                // By default, all middleware are passive/not automatic. Making cookie middleware automatic so that it acts on all the messages.
+                options.AutomaticAuthentication = true;
 
+            });
+
+            // Configure the OWIN Pipeline to use OpenId Connect Authentication
             app.UseOpenIdConnectAuthentication(options =>
             {
                 options.ClientId = Configuration.Get("AzureAd:ClientId");

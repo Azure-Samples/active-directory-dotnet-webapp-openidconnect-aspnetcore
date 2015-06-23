@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Authentication.OpenIdConnect;
+using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Http.Security;
-using Microsoft.AspNet.Security.OpenIdConnect;
-using Microsoft.AspNet.Security.Cookies;
 
 namespace WebApp_OpenIdConnect_DotNet.Controllers
 {
@@ -14,10 +9,10 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
     {
         // GET: /Account/Login
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login()
         {
             if (Context.User == null || !Context.User.Identity.IsAuthenticated)
-                return new ChallengeResult(OpenIdConnectAuthenticationDefaults.AuthenticationType, new AuthenticationProperties { RedirectUri = "/" });
+                return new ChallengeResult(OpenIdConnectAuthenticationDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
             return RedirectToAction("Index", "Home");
         }
 
@@ -26,11 +21,9 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
         public IActionResult LogOff()
         {
             if (Context.User.Identity.IsAuthenticated)
-                Context.Response.SignOut(new List<string>()
-                {
-                    OpenIdConnectAuthenticationDefaults.AuthenticationType,
-                    CookieAuthenticationDefaults.AuthenticationType
-                });
+            {
+                Context.Authentication.SignOut(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
+            }
             return RedirectToAction("Index", "Home");
         }
     }

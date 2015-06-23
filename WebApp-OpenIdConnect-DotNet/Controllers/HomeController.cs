@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNet.Mvc;
 
 namespace WebApp_OpenIdConnect_DotNet.Controllers
