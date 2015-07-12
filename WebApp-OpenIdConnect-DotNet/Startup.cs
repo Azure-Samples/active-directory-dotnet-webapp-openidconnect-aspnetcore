@@ -7,7 +7,7 @@ using Microsoft.AspNet.Authentication.OpenIdConnect;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Runtime;
@@ -17,12 +17,21 @@ namespace WebApp_OpenIdConnect_DotNet
 {
     public class Startup
     {
-        public Startup(IApplicationEnvironment env)
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             // Setup configuration sources.
-            Configuration = new Configuration(env.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
+            var configurationBuilder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+               .AddJsonFile("config.json")
+               .AddEnvironmentVariables();
+
+            if (env.IsEnvironment("Development"))
+            {
+                // This reads the configuration keys from the secret store.
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                configurationBuilder.AddUserSecrets();
+            }
+
+            Configuration = configurationBuilder.Build();
         }
 
         public IConfiguration Configuration { get; set; }
@@ -48,7 +57,7 @@ namespace WebApp_OpenIdConnect_DotNet
             loggerfactory.AddConsole();
 
             // Add the following to the request pipeline only in development environment.
-            if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
+            if (env.IsEnvironment("Development"))
             {
                 app.UseErrorPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
