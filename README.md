@@ -82,7 +82,7 @@ All of the middleware in this project is created as a part of the open source [A
 
 1. In Visual Studio 2015 CTP6, create a new "ASP.NET 5 Preview Starter Web" application.
 2. Enable SSL for the application by following the steps at the below section.
-5. Add the `Microsoft.AspNet.Security.OpenIdConnect` ASP.Net 5 middleware NuGet to the project.  Remember to enable prerelease versions in the NuGet package manager.
+5. Add the `Microsoft.AspNet.Authentication.OpenIdConnect` ASP.Net 5 middleware NuGet to the project.  Remember to enable prerelease versions in the NuGet package manager.
 5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
 6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project, resolving any excess or missing using statements.
 6. In `Views\Shared`, replace the implementation of `_LoginPartial.cshtml` with the one from the sample.
