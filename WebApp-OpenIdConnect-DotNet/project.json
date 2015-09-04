@@ -1,22 +1,21 @@
-{
+﻿{
     "userSecretsId": "aspnet5-WebApp_OpenIdConnect_DotNet-20150712105225",
     "webroot": "wwwroot",
     "version": "1.0.0-*",
     "dependencies": {
-        "Microsoft.AspNet.Mvc": "6.0.0-*",
-        "Microsoft.AspNet.Diagnostics": "1.0.0-*",
-        "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-*",
-        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-*",
-        "Microsoft.AspNet.Server.IIS": "1.0.0-*",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-*",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-*",
-        "Microsoft.Framework.Configuration.UserSecrets": "1.0.0-*",
-        "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-*",
-        "Microsoft.Framework.Logging": "1.0.0-*",
-        "Microsoft.Framework.Logging.Console": "1.0.0-*",
-        "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-*",
-        "Microsoft.AspNet.Authentication.OpenIdConnect": "1.0.0-*"
+        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta6-*",
+        "Microsoft.AspNet.Authentication.OpenIdConnect": "1.0.0-beta6-*",
+        "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-beta6-*",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta6-*",
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta6-*",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta6-*",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta6-*",
+        "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta5-*",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta6-*",
+        "Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta6-*",
+        "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-beta6-*",
+        "Microsoft.Framework.Logging": "1.0.0-beta6-*",
+        "Microsoft.Framework.Logging.Console": "1.0.0-beta6-*"
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
