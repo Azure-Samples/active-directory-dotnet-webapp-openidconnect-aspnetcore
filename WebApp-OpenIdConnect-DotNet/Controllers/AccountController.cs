@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Authentication.OpenIdConnect;
 using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Mvc;
@@ -22,6 +23,7 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
         {
             if (Context.User.Identity.IsAuthenticated)
             {
+                Context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
                 Context.Authentication.SignOut(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
             }
             return RedirectToAction("Index", "Home");
