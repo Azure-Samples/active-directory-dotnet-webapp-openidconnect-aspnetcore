@@ -23,8 +23,8 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                Context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
-                Context.Authentication.SignOut(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
+                Context.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                Context.Authentication.SignOutAsync(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
             }
             return RedirectToAction("Index", "Home");
         }
