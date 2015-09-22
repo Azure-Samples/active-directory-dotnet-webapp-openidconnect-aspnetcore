@@ -1,3 +1,9 @@
+---
+services:
+platforms:
+author: azure
+---
+
 # WebApp-OpenIdConnect-AspNet5
 This sample shows how to build a .Net MVC web application that uses OpenID Connect to sign-in users from a single Azure Active Directory tenant, using the ASP.Net 5 OpenID Connect middleware.
 
