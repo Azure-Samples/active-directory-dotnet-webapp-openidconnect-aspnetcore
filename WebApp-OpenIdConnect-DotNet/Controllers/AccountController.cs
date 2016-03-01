@@ -12,8 +12,8 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (Context.User == null || !Context.User.Identity.IsAuthenticated)
-                return new ChallengeResult(OpenIdConnectAuthenticationDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
+            if (HttpContext.User == null || !HttpContext.User.Identity.IsAuthenticated)
+                return new ChallengeResult(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
             return RedirectToAction("Index", "Home");
         }
 
@@ -21,10 +21,10 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
         [HttpGet]
         public IActionResult LogOff()
         {
-            if (Context.User.Identity.IsAuthenticated)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                Context.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                Context.Authentication.SignOutAsync(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
+                HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+                HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
             return RedirectToAction("Index", "Home");
         }
