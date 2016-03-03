@@ -10,23 +10,21 @@ namespace WebApp_OpenIdConnect_DotNet.Controllers
     {
         // GET: /Account/Login
         [HttpGet]
-        public IActionResult Login()
+        public void Login()
         {
             if (HttpContext.User == null || !HttpContext.User.Identity.IsAuthenticated)
-                return new ChallengeResult(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
-            return RedirectToAction("Index", "Home");
+                HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
         }
 
         // GET: /Account/LogOff
         [HttpGet]
-        public IActionResult LogOff()
+        public void LogOff()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
                 HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
-            return RedirectToAction("Index", "Home");
         }
     }
 }
