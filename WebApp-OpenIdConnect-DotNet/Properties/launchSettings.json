@@ -14,7 +14,7 @@
       "environmentVariables": {
         "Hosting:Environment": "Development"
       },
-      "sdkVersion": "dnx-clr-win-x86.1.0.0-rc2-16595"
+      "sdkVersion": "dnx-clr-win-x86.1.0.0-rc1-update1"
     },
     "web": {
       "commandName": "web",

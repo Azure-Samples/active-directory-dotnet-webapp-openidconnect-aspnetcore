@@ -75,10 +75,18 @@ namespace WebApp_OpenIdConnect_DotNet
             });
         }
 
+        // Handle sign-in errors differently than generic errors.
+        private Task OnAuthenticationFailed(AuthenticationFailedContext context)
+        {
+            context.HandleResponse();
+            context.Response.Redirect("/Home/Error?message=" + context.Exception.Message);
+            return Task.FromResult(0);
+        }
+
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseDefaultConfiguration(args)
+                .UseDefaultHostingConfiguration(args)
                 .UseIISPlatformHandlerUrl()
                 .UseServer("Microsoft.AspNetCore.Server.WebListener")
                 .UseStartup<Startup>()
@@ -87,12 +95,6 @@ namespace WebApp_OpenIdConnect_DotNet
             host.Run();
         }
 
-        // Handle sign-in errors differently than generic errors.
-        private Task OnAuthenticationFailed(AuthenticationFailedContext context)
-        {
-            context.HandleResponse();
-            context.Response.Redirect("/Home/Error?message=" + context.Exception.Message);
-            return Task.FromResult(0);
-        }
+
     }
 }

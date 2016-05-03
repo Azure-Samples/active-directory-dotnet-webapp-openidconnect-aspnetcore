@@ -3,22 +3,23 @@
     "webroot": "wwwroot",
     "version": "1.0.0-*",
     "dependencies": {
-        "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
-        "Microsoft.AspNetCore.Mvc": "1.0.0-*",
-        "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
-        "Microsoft.AspNetCore.Server.WebListener": "0.1.0-*",
-        "Microsoft.AspNetCore.StaticFiles": "1.0.0-*",
-        "Microsoft.AspNetCore.Authentication.OpenIdConnect": "0.1.0-*",
-        "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0-*",
-        "Microsoft.Extensions.Logging.Console": "1.0.0-*",
-        "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
-        "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
+        "Microsoft.NETCore.Platforms": "1.0.1-rc2-24008",
+        "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc2-20581",
+        "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-20581",
+        "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-rc2-20581",
+        "Microsoft.AspNetCore.Server.WebListener": "0.1.0-rc2-20581",
+        "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-20581",
+        "Microsoft.AspNetCore.Authentication.OpenIdConnect": "0.1.0-rc2-20581",
+        "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0-rc2-20581",
+        "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-20581",
+        "Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-20581",
+        "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-20581"
     },
     "commands": {
         "web": "WebApp-OpenIdConnect-DotNet"
     },
     "frameworks": {
-        "dnx451": {}
+        "net451": { }
     },
     "compilationOptions": {
         "emitEntryPoint": true
