@@ -3,7 +3,6 @@
     padding-bottom: 20px;
 }
 
-
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -18,22 +17,15 @@ textarea {
     max-width: 280px;
 }
 
-
-/* CAROUSEL
--------------------------------------------------- */
-
-.carousel-caption {
-    z-index: 10 !important;
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
 }
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-@media (min-width: 768px) {
-
-    .carousel-caption {
-        z-index: 10 !important;
-    }
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
 }
