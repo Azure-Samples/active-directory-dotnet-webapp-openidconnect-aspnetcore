@@ -15,22 +15,15 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
     {
         // GET: /Account/Login
         [HttpGet]
-        public async void Login()
+        public async Task Login()
         {
-            try
-            {
-                if (HttpContext.User == null || !HttpContext.User.Identity.IsAuthenticated)
-                    await HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
-            }
-            catch (Exception ex)
-            {
-
-            }
+            if (HttpContext.User == null || !HttpContext.User.Identity.IsAuthenticated)
+                await HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
         }
 
         // GET: /Account/LogOff
         [HttpGet]
-        public async void LogOff()
+        public async Task LogOff()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
