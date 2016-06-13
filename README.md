@@ -4,17 +4,19 @@ platforms: dotnet
 author: dstrockis
 ---
 
-# Integrating Azure AD into an ASP.NET 5 web app
-This sample shows how to build a .Net MVC web application that uses OpenID Connect to sign-in users from a single Azure Active Directory tenant, using the ASP.Net 5 OpenID Connect middleware.
+# Integrating Azure AD into an ASP.NET Core web app
+This sample shows how to build a .Net MVC web application that uses OpenID Connect to sign-in users from a single Azure Active Directory tenant, using the ASP.Net Core OpenID Connect middleware.
 
 For more information about how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
 
-> Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
+> This sample has finally been updated to ASP.NET Core RC2.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
 
 ## How To Run This Sample
 
 Getting started is simple!  To run this sample you will need:
-- [Visual Studio 2015 RC](https://www.visualstudio.com/en-us/downloads/visual-studio-2015-downloads-vs.aspx)
+- [.NET Core & .NET Core SDK RC2 releases](https://www.microsoft.com/net/download)
+- [ASP.NET Core RC2 release](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/)
+- [Visual Studio 2015 Update 2](https://www.visualstudio.com/en-us/downloads/visual-studio-2015-downloads-vs.aspx)
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
@@ -24,7 +26,7 @@ Every Azure subscription has an associated Azure Active Directory tenant.  If yo
 
 From your shell or command line:
 
-`git clone https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnet5.git`
+`git clone https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore.git`
 
 ### Step 2:  Create a user account in your Azure Active Directory tenant
 
@@ -39,7 +41,7 @@ If you already have a user account in your Azure Active Directory tenant, you ca
 5. In the drawer, click Add.
 6. Click "Add an application my organization is developing".
 7. Enter a friendly name for the application, for example "WebApp-OpenIDConnect-DotNet", select "Web Application and/or Web API", and click next.
-8. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322/`.
+8. For the sign-on URL, enter the redirect URI for the sample, which is by default `https://localhost:44353/signin-oidc`.
 9. For the App ID URI, enter `https://<your_tenant_name>/WebApp-OpenIDConnect-DotNet`, replacing `<your_tenant_name>` with the name of your Azure AD tenant.
 
 All done!  Before moving on to the next step, you need to find the Client ID of your application.
@@ -61,63 +63,22 @@ Clean the solution, rebuild the solution, and run it.
 
 Click the sign-in link on the homepage of the application to sign-in.  On the Azure AD sign-in page, enter the name and password of a user account that is in your Azure AD tenant.
 
-## How To Deploy This Sample to Azure
-
-Coming soon.
-
 ## About The Code
 
-This sample shows how to use the OpenID Connect ASP.Net 5 middleware to sign-in users from a single Azure AD tenant.  The middleware is initialized in the `Startup.cs` file, by passing it the Client ID of the application and the URL of the Azure AD tenant where the application is registered.  The middleware then takes care of:
+This sample shows how to use the OpenID Connect ASP.Net Core middleware to sign-in users from a single Azure AD tenant.  The middleware is initialized in the `Startup.cs` file, by passing it the Client ID of the application and the URL of the Azure AD tenant where the application is registered.  The middleware then takes care of:
 - Downloading the Azure AD metadata, finding the signing keys, and finding the issuer name for the tenant.
 - Processing OpenID Connect sign-in responses by validating the signature and issuer in an incoming JWT, extracting the user's claims, and putting them on ClaimsPrincipal.Current.
 - Integrating with the session cookie ASP.Net 5 middleware to establish a session for the user. 
 
 You can trigger the middleware to send an OpenID Connect sign-in request by decorating a class or method with the `[Authorize]` attribute, or by issuing a challenge,
 ```C#
-Context.Response.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationScheme, 
-    new AuthenticationProperties { RedirectUri = "/" });
+await HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
 ```
 Similarly you can send a signout request,
 ```C#
-Context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
-Context.Authentication.SignOut(OpenIdConnectAuthenticationDefaults.AuthenticationScheme);
+await HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 When a user is signed out, they will be redirected to the `Post_Logout_Redirect_Uri` specified when the OpenID Connect middleware is initialized.
 
 All of the middleware in this project is created as a part of the open source [Asp.Net Security](https://github.com/aspnet/Security) project.
-
-## How To Recreate This Sample
-
-1. In Visual Studio 2015 CTP6, create a new "ASP.NET 5 Preview Starter Web" application.
-2. Enable SSL for the application by following the steps at the below section.
-5. Add the `Microsoft.AspNet.Authentication.OpenIdConnect` ASP.Net 5 middleware NuGet to the project.  Remember to enable prerelease versions in the NuGet package manager.
-5. Remove a few excess files that come with the template - they are not needed for this sample.  Delete the `Migrations` folder, the `Views/Account` folder, the `Models` folder, and the `Compiler` folder.
-6. Replace the implementation of the `Controllers\AccountController.cs` class with the one from the project, resolving any excess or missing using statements.
-6. In `Views\Shared`, replace the implementation of `_LoginPartial.cshtml` with the one from the sample.
-7. Replace the contents of `config.json` with the one from the sample.
-6. Replace the contents of `Startup.cs` with the one from the sample, resolving any excess or missing using statements.
-12. If you want the user to be required to sign-in before they can see any page of the app, then in the `HomeController`, decorate the `HomeController` class with the `[Authorize]` attribute.  If you leave this out, the user will be able to see the home page of the app without having to sign-in first, and can click the sign-in link on that page to get signed in.
-13. Almost done!  Follow the steps in "How To Run This Sample" above to register the application in your AAD tenant.
-
-### Enable SSL in Visual Studio 2015 RC manually
-These steps are temporarily necessary to enable SSL only for Visual Studio 2015 CTP6: First, hit F5 to run the application.  Once you see the homepage, you may close the browser and stop IIS Express.  In a text editor, open the file `%userprofile%\documents\IISExpress\config\applicatoinhost.confg`.  Find the entry for your app in the `<sites>` node.  Add an https protocol binding to this entry for a port between 44300 and 44399, similar to the following:
-
-```
-<site name="WebApplication1" id="2">
-	<application path="/" applicationPool="Clr4IntegratedAppPool">
-        	<virtualDirectory path="/" physicalPath="c:\users\billhie\documents\visual studio 2015\Projects\WebApplication1\WebApplication1" />
-        </application>
-        <bindings>
-            <binding protocol="http" bindingInformation="*:53756:localhost" />
-            <binding protocol="https" bindingInformation="*:44300:localhost" />
-        </bindings>
-    </site>
-```
-Save and close the file.  In Visual Studio, open the properties page of your web app.  In the Debug menu, enable the Launch Browser checkbox and enter the same URL as the protocol binding you added, e.g. `https://localhost:44300/`.  Your app will now run at this address.
-
-### Enable SSL in Visual Studio 2015 RC
-
-1. Right-Click in project, select "Properties" or "Alt+Enter"
-2. In project properties window, switch to "Debug" page
-3. Check "Enable SSL", "Ctrl+S" to save project properties 
-4. Copy url from text box underneath "Enable SSL" check box into "Launch Browser" text box (note: must check "Launch Browser")
