@@ -15,7 +15,6 @@ namespace WebApp_OpenIDConnect_DotNet
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseDefaultHostingConfiguration(args)
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

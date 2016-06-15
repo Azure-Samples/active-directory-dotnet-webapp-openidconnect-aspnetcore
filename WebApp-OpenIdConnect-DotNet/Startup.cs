@@ -22,7 +22,6 @@ namespace WebApp_OpenIDConnect_DotNet
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("config.json")
                 .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
                 .Build();
         }
 
