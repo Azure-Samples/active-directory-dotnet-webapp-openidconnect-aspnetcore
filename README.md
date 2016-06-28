@@ -9,14 +9,12 @@ This sample shows how to build a .Net MVC web application that uses OpenID Conne
 
 For more information about how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
 
-> This sample has finally been updated to ASP.NET Core RC2.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
+> This sample has been updated to ASP.NET Core 1.0.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
 
 ## How To Run This Sample
 
 Getting started is simple!  To run this sample you will need:
-- [.NET Core & .NET Core SDK RC2 releases](https://www.microsoft.com/net/download)
-- [ASP.NET Core RC2 release](https://blogs.msdn.microsoft.com/webdev/2016/05/16/announcing-asp-net-core-rc2/)
-- [Visual Studio 2015 Update 2](https://www.visualstudio.com/en-us/downloads/visual-studio-2015-downloads-vs.aspx)
+- Install .NET Core for Windows by following the instructions at [dot.net/core](https://dot.net/core), which will include Visual Studio 2015 Update 3.
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
@@ -71,7 +69,7 @@ Click the sign-in link on the homepage of the application to sign-in.  On the Az
 This sample shows how to use the OpenID Connect ASP.Net Core middleware to sign-in users from a single Azure AD tenant.  The middleware is initialized in the `Startup.cs` file, by passing it the Client ID of the application and the URL of the Azure AD tenant where the application is registered.  The middleware then takes care of:
 - Downloading the Azure AD metadata, finding the signing keys, and finding the issuer name for the tenant.
 - Processing OpenID Connect sign-in responses by validating the signature and issuer in an incoming JWT, extracting the user's claims, and putting them on ClaimsPrincipal.Current.
-- Integrating with the session cookie ASP.Net 5 middleware to establish a session for the user. 
+- Integrating with the session cookie ASP.Net Core middleware to establish a session for the user. 
 
 You can trigger the middleware to send an OpenID Connect sign-in request by decorating a class or method with the `[Authorize]` attribute, or by issuing a challenge,
 ```C#
