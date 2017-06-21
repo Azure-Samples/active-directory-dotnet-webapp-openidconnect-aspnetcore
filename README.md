@@ -1,7 +1,7 @@
 ---
 services: active-directory
 platforms: dotnet
-author: dstrockis
+author: jmprieur
 ---
 
 # Integrating Azure AD into an ASP.NET Core web app
