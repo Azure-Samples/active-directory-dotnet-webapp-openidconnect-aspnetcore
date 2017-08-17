@@ -11,6 +11,8 @@ For more information about how the protocols work in this scenario and other sce
 
 > This sample has been updated to ASP.NET Core 1.1.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
 
+> If you are interested in a preview for ASP.NET Core 2.0, please look at branch [aspnet_core_2_0](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/aspnet_core_2_0)
+
 ## How To Run This Sample
 
 Getting started is simple!  To run this sample you will need:
