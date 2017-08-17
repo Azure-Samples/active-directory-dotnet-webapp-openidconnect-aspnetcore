@@ -33,26 +33,31 @@ namespace WebApp_OpenIDConnect_DotNet
             services.AddMvc();
 
             // Add Authentication services.
-            services.AddAuthentication(sharedOptions => sharedOptions.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(sharedOptions =>
+            {
+                sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
                 // Configure the OWIN pipeline to use cookie auth.
-                .AddCookie(option => new CookieAuthenticationOptions())
+                .AddCookie()
                 // Configure the OWIN pipeline to use OpenID Connect auth.
-                .AddOpenIdConnect(option => new OpenIdConnectOptions
+                .AddOpenIdConnect(option =>
                 {
-                    ClientId = Configuration["AzureAD:ClientId"],
-                    Authority = String.Format(Configuration["AzureAd:AadInstance"], Configuration["AzureAd:Tenant"]),
-                    ResponseType = OpenIdConnectResponseType.IdToken,
-                    SignedOutRedirectUri = Configuration["AzureAd:PostLogoutRedirectUri"],
-                    Events = new OpenIdConnectEvents
+                    option.ClientId = Configuration["AzureAD:ClientId"];
+                    option.Authority = String.Format(Configuration["AzureAd:AadInstance"], Configuration["AzureAd:Tenant"]);
+                    option.SignedOutRedirectUri = Configuration["AzureAd:PostLogoutRedirectUri"];
+                    option.Events = new OpenIdConnectEvents
                     {
                         OnRemoteFailure = OnAuthenticationFailed,
-                    },
+                    };
                 });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseAuthentication();
+
             // Add the console logger.
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 
@@ -61,6 +66,11 @@ namespace WebApp_OpenIDConnect_DotNet
 
             // Add static files to the request pipeline.
             app.UseStaticFiles();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             // Configure MVC routes
             app.UseMvc(routes =>
