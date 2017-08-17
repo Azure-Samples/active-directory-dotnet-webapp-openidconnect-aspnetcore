@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F492237-55A2-48AB-A6F1-2BBAD11D5917}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp-OpenIDConnect-DotNet", "WebApp-OpenIDConnect-DotNet\WebApp-OpenIDConnect-DotNet.csproj", "{6ECB453C-AEA3-44AF-8185-059FBAC7B56C}"
 EndProject

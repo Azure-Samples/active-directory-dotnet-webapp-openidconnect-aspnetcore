@@ -9,7 +9,7 @@ This sample shows how to build a .Net MVC web application that uses OpenID Conne
 
 For more information about how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
 
-> This sample has been updated to ASP.NET Core 1.0.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
+> This sample has been updated to ASP.NET Core 1.1.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
 
 ## How To Run This Sample
 
