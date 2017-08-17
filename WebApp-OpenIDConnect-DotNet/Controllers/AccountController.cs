@@ -1,8 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApp_OpenIDConnect_DotNet.Controllers
 {
@@ -13,7 +18,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
         public async Task Login()
         {
             if (HttpContext.User == null || !HttpContext.User.Identity.IsAuthenticated)
-                await HttpContext.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
+                await HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
         }
 
         // GET: /Account/LogOff
@@ -22,8 +27,8 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+                await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
         }
 
@@ -31,7 +36,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
         public async Task EndSession()
         {
             // If AAD sends a single sign-out message to the app, end the user's session, but don't redirect to AAD for sign out.
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
     }
 }
