@@ -9,9 +9,9 @@ This sample shows how to build a .Net MVC web application that uses OpenID Conne
 
 For more information about how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
 
-> This sample has been updated to ASP.NET Core 1.1.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
+> This sample has been updated to ASP.NET Core 2.0.  Looking for previous versions of this code sample? Check out the tags on the [releases](../../releases) GitHub page.
 
-> If you are interested in a preview for ASP.NET Core 2.0, please look at branch [aspnet_core_2_0](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/aspnet_core_2_0)
+> If you are interested in  ASP.NET Core 2.1, please look at branch [aspnet_core_1_1](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/aspnet_core_1_1)
 
 ## How To Run This Sample
 
@@ -55,19 +55,19 @@ Click the sign-in link on the homepage of the application to sign-in.  On the Az
 
 ## About The Code
 
-This sample shows how to use the OpenID Connect ASP.Net Core middleware to sign-in users from a single Azure AD tenant.  The middleware is initialized in the `Startup.cs` file, by passing it the Client ID of the application and the URL of the Azure AD tenant where the application is registered.  The middleware then takes care of:
+This sample shows how to use the OpenID Connect ASP.Net Core middleware to sign-in users from a single Azure AD tenant.  The middleware is initialized in the `Startup.cs` file, by passing it the Client ID of the application and the URL of the Azure AD tenant where the application is registered (they are read from the `config.json` and `appsettings.json` files).  The middleware then takes care of:
 - Downloading the Azure AD metadata, finding the signing keys, and finding the issuer name for the tenant.
 - Processing OpenID Connect sign-in responses by validating the signature and issuer in an incoming JWT, extracting the user's claims, and putting them on ClaimsPrincipal.Current.
 - Integrating with the session cookie ASP.Net Core middleware to establish a session for the user. 
 
-You can trigger the middleware to send an OpenID Connect sign-in request by decorating a class or method with the `[Authorize]` attribute, or by issuing a challenge,
+You can trigger the middleware to send an OpenID Connect sign-in request by decorating a class or method with the `[Authorize]` attribute, or by issuing a challenge (See the `AccountController.cs` file),
 ```C#
-await HttpContext.Authentication.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
+await HttpContext.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = "/" });
 ```
 Similarly you can send a signout request,
 ```C#
-await HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
-await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 When a user is signed out, they will be redirected to the `Post_Logout_Redirect_Uri` specified when the OpenID Connect middleware is initialized.
 
