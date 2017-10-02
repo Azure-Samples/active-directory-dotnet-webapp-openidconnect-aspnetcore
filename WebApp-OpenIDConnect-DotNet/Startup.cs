@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -35,12 +33,31 @@ namespace WebApp_OpenIDConnect_DotNet
             services.AddMvc();
 
             // Add Authentication services.
-            services.AddAuthentication(sharedOptions => sharedOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthentication(sharedOptions =>
+            {
+                sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+                // Configure the OWIN pipeline to use cookie auth.
+                .AddCookie()
+                // Configure the OWIN pipeline to use OpenID Connect auth.
+                .AddOpenIdConnect(option =>
+                {
+                    option.ClientId = Configuration["AzureAD:ClientId"];
+                    option.Authority = String.Format(Configuration["AzureAd:AadInstance"], Configuration["AzureAd:Tenant"]);
+                    option.SignedOutRedirectUri = Configuration["AzureAd:PostLogoutRedirectUri"];
+                    option.Events = new OpenIdConnectEvents
+                    {
+                        OnRemoteFailure = OnAuthenticationFailed,
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseAuthentication();
+
             // Add the console logger.
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 
@@ -50,21 +67,10 @@ namespace WebApp_OpenIDConnect_DotNet
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 
-            // Configure the OWIN pipeline to use cookie auth.
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
-
-            // Configure the OWIN pipeline to use OpenID Connect auth.
-            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+            if (env.IsDevelopment())
             {
-                ClientId = Configuration["AzureAD:ClientId"],
-                Authority = String.Format(Configuration["AzureAd:AadInstance"], Configuration["AzureAd:Tenant"]),
-                ResponseType = OpenIdConnectResponseType.IdToken,
-                PostLogoutRedirectUri = Configuration["AzureAd:PostLogoutRedirectUri"],
-                Events = new OpenIdConnectEvents
-                {
-                    OnRemoteFailure = OnAuthenticationFailed,
-                }
-            });
+                app.UseDeveloperExceptionPage();
+            }
 
             // Configure MVC routes
             app.UseMvc(routes =>
@@ -76,7 +82,7 @@ namespace WebApp_OpenIDConnect_DotNet
         }
 
         // Handle sign-in errors differently than generic errors.
-        private Task OnAuthenticationFailed(FailureContext context)
+        private Task OnAuthenticationFailed(RemoteFailureContext context)
         {
             context.HandleResponse();
             context.Response.Redirect("/Home/Error?message=" + context.Failure.Message);
