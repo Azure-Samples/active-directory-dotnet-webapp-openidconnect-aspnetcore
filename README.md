@@ -6,7 +6,7 @@ author: jmprieur
 
 # Integrating Azure AD into an ASP.NET Core web app
 
-This sample shows how to build a .NET MVC web app that uses OpenID Connect to sign-in users from a single Azure Active Directory tenant using the ASP.NET Core OpenID Connect middleware.
+This sample shows how to build a .NET MVC web app that uses OpenID Connect to sign-in users from a single Azure Active Directory (Azure AD) tenant using the ASP.NET Core OpenID Connect middleware.
 
 For more information on how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
 
@@ -14,20 +14,21 @@ For more information on how the protocols work in this scenario and other scenar
 
 To run this sample:
 - Install .NET Core for Windows by following the instructions at [.NET and C# - Get Started in 10 Minutes](https://www.microsoft.com/net/core). In addition to developing on Windows, you can develop on [Linux](https://www.microsoft.com/net/core#linuxredhat), [Mac](https://www.microsoft.com/net/core#macos), or [Docker](https://www.microsoft.com/net/core#dockercmd).
-- An Azure Active Directory (Azure AD) tenant. For more information on how to obtain an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
+- An Azure AD tenant. For more information on how to obtain an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 
-### Step 1: Register the sample with your Azure Active Directory tenant
+### Step 1: Register the sample with your Azure AD tenant
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
-2. Navigate to the Azure Active Directory blade.
-3. From the sidebar, select **App registrations**.
-4. Select **New application registration** and provide a friendly name for the app, app type, and sign-on URL:
+1. On the top bar, select your account. Under the **DIRECTORY** list, choose the Active Directory tenant where you wish to register your app. If there isn't a **DIRECTORY** list in the drop down menu, skip this step, as you only have a single tenant associated with your Azure account. For more information, see [How to get an Azure Active Directory tenant](https://docs.microsoft.com/azure/active-directory/develop/active-directory-howto-tenant).
+1. In the left navigation sidebar, select **Azure Active Directory**. If you don't see **Azure Active Directory** in the list, select **More Services** and choose **Azure Active Directory** in the **SECURITY + IDENTITY** section of the service list.
+1. From the sidebar, select **App registrations**.
+1. Select **New application registration** and provide a friendly name for the app, app type, and sign-on URL:
    **Name**: **WebApp-OpenIDConnect-DotNet**
    **Application Type**: **Web app / API**
    **Sign-on URL**: `http://localhost:5000/signin-oidc`
    Select **Create** to register the app.
-5. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
-6. From the Azure portal, note the following information:
+1. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
+1. From the Azure portal, note the following information:
    The Tenant domain: See the **App ID URI** base URL. For example: `contoso.onmicrosoft.com`
    The Tenant ID: See the **Endpoints** blade. Record the GUID from any of the endpoint URLs. For example: `da41245a5-11b3-996c-00a8-4d99re19f292`
    The Application ID (Client ID): See the **Properties** blade. For example: `ba74781c2-53c2-442a-97c2-3d60re42f403`
@@ -62,22 +63,28 @@ If you aren't using [Visual Studio](https://www.visualstudio.com/vs/) as your de
     <Exec Command="bower install" />
   </Target>
   ```
-- Add `BundlerMinifer.Core` to the `ItemGroup` containing `DotNetCliToolReference` references:
+- Add `BundlerMinifer.Core` to the `ItemGroup` containing tool references:
   ```xml
-  <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.5.357" />
+  <ItemGroup>
+    <!-- Other Tool References -->
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.5.357" />
+  </ItemGroup>
   ```
-- Add the `dotnet bundle` command target to bundle and minify scripts and styles in the app:
+- Add `BuildBundlerMinifier` to the `ItemGroup` containing other app package references:
   ```xml
-  <Target Name="PrePublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="dotnet bundle" />
-  </Target>
+  <ItemGroup>
+    <!-- Other Package References -->
+    <PackageReference Include="BuildBundlerMinifier" Version="2.5.357" />
+  </ItemGroup>
   ```
+
+Note: You only need to add these entries to your project file if you aren't working in Visual Studio. Visual Studio has built-in features that enable these technologies when Bower and `BundlerMinifier.Core` configuration files are present in the app. For more information on Bower setup and configuration in your environment, see: [Bower: A package manager for the web](https://bower.io/) and [Manage client-side packages with Bower in ASP.NET Core](https://docs.microsoft.com/aspnet/core/client-side/bower).
 
 ### Step 3: Run the sample
 
 Build the solution and run it.
 
-Make a request to the app. The app immediately attempts to authenticate you via Azure AD. Sign in with your Global Administrator account.
+Make a request to the app. The app immediately attempts to authenticate you via Azure AD. Sign in with the username and password of a user account that is in your Azure AD tenant. You can also use your tenant's Global Administrator account. If you wish to create a user in the tenant, select **Add a user** from the **Quick tasks** panel. The **Quick tasks** panel is found on the Azure AD tenant's blade in the portal.
 
 ## About The code
 
