@@ -55,31 +55,6 @@ This sample was created from the 2.0 [dotnet new mvc](https://docs.microsoft.com
 
   In the **appsettings.json* file, provide values for the `Domain`, `TenantId`, and `ClientID` that you recorded earlier from the Azure portal.
 
-If you aren't using [Visual Studio](https://www.visualstudio.com/vs/) as your development environment and created the project with the `dotnet new mvc` command:
-
-- Add Bower to the project file:
-  ```xml
-  <Target Name="PreBuildScript" BeforeTargets="PrepareForBuild">
-    <Exec Command="bower install" />
-  </Target>
-  ```
-- Add `BundlerMinifer.Core` to the `ItemGroup` containing tool references:
-  ```xml
-  <ItemGroup>
-    <!-- Other Tool References -->
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.5.357" />
-  </ItemGroup>
-  ```
-- Add `BuildBundlerMinifier` to the `ItemGroup` containing other app package references:
-  ```xml
-  <ItemGroup>
-    <!-- Other Package References -->
-    <PackageReference Include="BuildBundlerMinifier" Version="2.5.357" />
-  </ItemGroup>
-  ```
-
-Note: You only need to add these entries to your project file if you aren't working in Visual Studio. Visual Studio has built-in features that enable these technologies when Bower and `BundlerMinifier.Core` configuration files are present in the app. For more information on Bower setup and configuration in your environment, see: [Bower: A package manager for the web](https://bower.io/) and [Manage client-side packages with Bower in ASP.NET Core](https://docs.microsoft.com/aspnet/core/client-side/bower).
-
 ### Step 3: Run the sample
 
 Build the solution and run it.
