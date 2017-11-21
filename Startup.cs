@@ -47,7 +47,12 @@ namespace WebApp_OpenIDConnect_DotNet
 
             app.UseAuthentication();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default", 
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
