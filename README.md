@@ -31,9 +31,11 @@ To run this sample:
    Select **Create** to register the app.
 1. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
 1. From the Azure portal, note the following information:
-   The Tenant domain: See the **App ID URI** base URL. For example: `contoso.onmicrosoft.com`
-   The Tenant ID: See the **Endpoints** blade. Record the GUID from any of the endpoint URLs. For example: `da41245a5-11b3-996c-00a8-4d99re19f292`
-   The Application ID (Client ID): See the **Properties** blade. For example: `ba74781c2-53c2-442a-97c2-3d60re42f403`
+   **The Tenant domain:** See the **App ID URI** base URL. For example: `contoso.onmicrosoft.com`
+   
+   **The Tenant ID:** See the **Endpoints** blade. Record the GUID from any of the endpoint URLs. For example: `da41245a5-11b3-996c-00a8-4d99re19f292`
+   
+   **The Application ID (Client ID):** See the **Properties** blade. For example: `ba74781c2-53c2-442a-97c2-3d60re42f403`
 
 > [!NOTE]
 > The base address in the **Sign-on URL** and **Logout URL** settings is `http://localhost:5000`. This localhost address allows the sample app to run insecurely from your local system. Port 5000 is the default port for the [Kestrel server](https://docs.microsoft.com/aspnet/core/fundamentals/servers/kestrel). Update these URLs if you configure the app for production use (for example, `https://www.contoso.com/signin-oidc` and `https://www.contoso.com/signout-oidc`).
