@@ -21,16 +21,23 @@ To run this sample:
 ### Step 1: Register the sample with your Azure AD tenant
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
-1. On the top bar, select your account. Under the **DIRECTORY** list, choose the Active Directory tenant where you wish to register your app. If there isn't a **DIRECTORY** list in the drop down menu, skip this step, as you only have a single tenant associated with your Azure account. For more information, see [How to get an Azure Active Directory tenant](https://docs.microsoft.com/azure/active-directory/develop/active-directory-howto-tenant).
-1. In the left navigation sidebar, select **Azure Active Directory**. If you don't see **Azure Active Directory** in the list, select **More Services** and choose **Azure Active Directory** in the **SECURITY + IDENTITY** section of the service list.
-1. From the sidebar, select **App registrations**.
-1. Select **New application registration** and provide a friendly name for the app, app type, and sign-on URL:
+
+2. On the top bar, select your account. Under the **DIRECTORY** list, choose the Active Directory tenant where you wish to register your app. If there isn't a **DIRECTORY** list in the drop down menu, skip this step, as you only have a single tenant associated with your Azure account. For more information, see [How to get an Azure Active Directory tenant](https://docs.microsoft.com/azure/active-directory/develop/active-directory-howto-tenant).
+
+3. In the left navigation sidebar, select **Azure Active Directory**. If you don't see **Azure Active Directory** in the list, select **More Services** and choose **Azure Active Directory** in the **SECURITY + IDENTITY** section of the service list.
+
+4. From the sidebar, select **App registrations**.
+
+5. Select **New application registration** and provide a friendly name for the app, app type, and sign-on URL:
    **Name**: **WebApp-OpenIDConnect-DotNet**
    **Application Type**: **Web app / API**
    **Sign-on URL**: `http://localhost:5000/signin-oidc`
    Select **Create** to register the app.
-1. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
-1. From the Azure portal, note the following information:
+
+6. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
+
+7. From the Azure portal, note the following information:
+
    **The Tenant domain:** See the **App ID URI** base URL. For example: `contoso.onmicrosoft.com`
    
    **The Tenant ID:** See the **Endpoints** blade. Record the GUID from any of the endpoint URLs. For example: `da41245a5-11b3-996c-00a8-4d99re19f292`
