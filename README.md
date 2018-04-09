@@ -100,4 +100,4 @@ The middleware in this project is created as a part of the open source [ASP.NET 
 
 ## FAQ
 
-- Why is the ClientSecret in [Extensions/AzureAdOptions.cs](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/blob/master/Extensions/AzureAdOptions.cs#L7) not used in this sample whereas it's used in other samples like [dotnet-webapp-webapi-openidconnect-aspnetcore](https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore). See discussion in #34
+- Why is the ClientSecret in [Extensions/AzureAdOptions.cs](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/blob/master/Extensions/AzureAdOptions.cs#L7) not used in this sample whereas it's used in other samples like [dotnet-webapp-webapi-openidconnect-aspnetcore](https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore). See discussion in [question #34](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/issues/34)
