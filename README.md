@@ -29,9 +29,10 @@ To run this sample:
 4. From the sidebar, select **App registrations**.
 
 5. Select **New application registration** and provide a friendly name for the app, app type, and sign-on URL:
-   **Name**: **WebApp-OpenIDConnect-DotNet**
-   **Application Type**: **Web app / API**
-   **Sign-on URL**: `http://localhost:5000/signin-oidc`
+   - **Name**: **WebApp-OpenIDConnect-DotNet**
+   - **Application Type**: **Web app / API**
+   - **Sign-on URL**: `http://localhost:5000/signin-oidc`
+  
    Select **Create** to register the app.
 
 6. On the **Properties** blade, set the **Logout URL** to `http://localhost:5000/signout-oidc` and select **Save**.
