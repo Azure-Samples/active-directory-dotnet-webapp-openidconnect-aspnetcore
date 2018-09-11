@@ -12,7 +12,9 @@ For more information on how the protocols work in this scenario and other scenar
 
 ## How to run this sample
 
-If you are interested in ASP.NET Core 1.1, please look at branch [aspnet_core_1_1](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/aspnet_core_1_1).
+This sample is for ASP.NET Core 2.0
+- if you are interested in ASP.NET Core 1.1, please look at branch [aspnet_core_1_1](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/aspnet_core_1_1).
+- if you are interested in ASP.NET Core 2.1, please look at [active-directory-aspnetcore-webapp-openidconnect-v2 (branch aspnetcore2-2)](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2/tree/aspnetcore2-2) which also features the Azure AD v2.0 endpoint (which can now be used with v1.0 and v2.0 applications)
 
 To run this sample:
 - Install .NET Core for Windows by following the instructions at [.NET and C# - Get Started in 10 Minutes](https://www.microsoft.com/net/core). In addition to developing on Windows, you can develop on [Linux](https://www.microsoft.com/net/core#linuxredhat), [Mac](https://www.microsoft.com/net/core#macos), or [Docker](https://www.microsoft.com/net/core#dockercmd).
