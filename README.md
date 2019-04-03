@@ -6,6 +6,12 @@ author: jmprieur
 
 # Integrating Azure AD into an ASP.NET Core web app
 
+> You might also be interested in this sample: https://github.com/azure-samples/ms-identity-aspnetcore-webapp-tutorial/
+>
+> This newer sample takes advantage of the Microsoft identity platform (formerly Azure AD v2.0).
+>
+> While still in public preview, every component is supported in production environments.
+
 This sample shows how to build a .NET MVC web app that uses OpenID Connect to sign-in users from a single Azure Active Directory (Azure AD) tenant using the ASP.NET Core OpenID Connect middleware.
 
 For more information on how the protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](http://go.microsoft.com/fwlink/?LinkId=394414).
