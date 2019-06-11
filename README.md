@@ -10,7 +10,6 @@ author: jmprieur
 >
 > This newer sample takes advantage of the Microsoft identity platform (formerly Azure AD v2.0).
 >
-> While still in public preview, every component is supported in production environments.
 
 This sample shows how to build a .NET MVC web app that uses OpenID Connect to sign-in users from a single Azure Active Directory (Azure AD) tenant using the ASP.NET Core OpenID Connect middleware.
 
